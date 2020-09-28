@@ -1,0 +1,700 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BD_KURSACH_Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Number_Group" Type="int" />
+        </EntityType>
+        <EntityType Name="DataClient">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="int" Nullable="false" />
+          <Property Name="Height" Type="int" Nullable="false" />
+          <Property Name="Bodytype" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Progress" Type="float" />
+        </EntityType>
+        <EntityType Name="DataTrainer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="int" Nullable="false" />
+          <Property Name="Height" Type="int" Nullable="false" />
+          <Property Name="BarbellSquat" Type="int" Nullable="false" />
+          <Property Name="Deadlift" Type="int" Nullable="false" />
+          <Property Name="BenchPress" Type="int" Nullable="false" />
+          <Property Name="Pullups" Type="int" Nullable="false" />
+          <Property Name="BodyType" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Exercises">
+          <Key>
+            <PropertyRef Name="Exercises" />
+          </Key>
+          <Property Name="Exercises" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MuscleGroups" Type="nvarchar" MaxLength="20" />
+          <Property Name="Priorety" Type="int" />
+        </EntityType>
+        <EntityType Name="ExercisesForClient">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Id_client" Type="int" />
+          <Property Name="First_Day" Type="nvarchar" MaxLength="50" />
+          <Property Name="Second_Day" Type="nvarchar" MaxLength="50" />
+          <Property Name="Third_Day" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Number_Group" />
+          </Key>
+          <Property Name="Number_Group" Type="int" Nullable="false" />
+          <Property Name="Id_Trainer" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="id_Message" />
+          </Key>
+          <Property Name="messages" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_Message" Type="int" Nullable="false" />
+          <Property Name="Who_sender" Type="int" Nullable="false" />
+          <Property Name="Who_recipient" Type="int" Nullable="false" />
+          <Property Name="GroupMessage" Type="int" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ResultExercises">
+          <Key>
+            <PropertyRef Name="number" />
+          </Key>
+          <Property Name="number" Type="int" Nullable="false" />
+          <Property Name="First_Day" Type="nvarchar" MaxLength="50" />
+          <Property Name="First_Day_Weight" Type="nvarchar" MaxLength="50" />
+          <Property Name="First_Day_Quantity" Type="nvarchar" MaxLength="50" />
+          <Property Name="Second_Day" Type="nvarchar" MaxLength="50" />
+          <Property Name="Second_Day_Weight" Type="nvarchar" MaxLength="50" />
+          <Property Name="Second_Day_Quantity" Type="nvarchar" MaxLength="50" />
+          <Property Name="Third_Day" Type="nvarchar" MaxLength="50" />
+          <Property Name="Third_Day_Weight" Type="nvarchar" MaxLength="50" />
+          <Property Name="Third_Day_Quantity" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id_Client" Type="int" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Trainer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number_Group" Type="int" />
+        </EntityType>
+        <Association Name="FK_Client_Group1">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Number_Group" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="Number_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataClient_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="DataClient" Type="Self.DataClient" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DataClient">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataTrainer_Trainer">
+          <End Role="Trainer" Type="Self.Trainer" Multiplicity="1" />
+          <End Role="DataTrainer" Type="Self.DataTrainer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Trainer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DataTrainer">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExercisesForClient_DataClient">
+          <End Role="DataClient" Type="Self.DataClient" Multiplicity="0..1" />
+          <End Role="ExercisesForClient" Type="Self.ExercisesForClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataClient">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExercisesForClient">
+              <PropertyRef Name="Id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResultExercises_DataClient">
+          <End Role="DataClient" Type="Self.DataClient" Multiplicity="0..1" />
+          <End Role="ResultExercises" Type="Self.ResultExercises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataClient">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ResultExercises">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainer_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Trainer" Type="Self.Trainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Number_Group" />
+            </Principal>
+            <Dependent Role="Trainer">
+              <PropertyRef Name="Number_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище BD_KURSACH_ModelContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataClient" EntityType="Self.DataClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataTrainer" EntityType="Self.DataTrainer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exercises" EntityType="Self.Exercises" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExercisesForClient" EntityType="Self.ExercisesForClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResultExercises" EntityType="Self.ResultExercises" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trainer" EntityType="Self.Trainer" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Client_Group1" Association="Self.FK_Client_Group1">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataClient_Client" Association="Self.FK_DataClient_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="DataClient" EntitySet="DataClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataTrainer_Trainer" Association="Self.FK_DataTrainer_Trainer">
+            <End Role="Trainer" EntitySet="Trainer" />
+            <End Role="DataTrainer" EntitySet="DataTrainer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExercisesForClient_DataClient" Association="Self.FK_ExercisesForClient_DataClient">
+            <End Role="DataClient" EntitySet="DataClient" />
+            <End Role="ExercisesForClient" EntitySet="ExercisesForClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResultExercises_DataClient" Association="Self.FK_ResultExercises_DataClient">
+            <End Role="DataClient" EntitySet="DataClient" />
+            <End Role="ResultExercises" EntitySet="ResultExercises" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trainer_Group" Association="Self.FK_Trainer_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Trainer" EntitySet="Trainer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_KURSACH_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Number_Group" Type="Int32" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Client_Group1" FromRole="Client" ToRole="Group" />
+          <NavigationProperty Name="DataClient" Relationship="Self.FK_DataClient_Client" FromRole="Client" ToRole="DataClient" />
+        </EntityType>
+        <EntityType Name="DataClient">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Int32" Nullable="false" />
+          <Property Name="Bodytype" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Progress" Type="Double" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_DataClient_Client" FromRole="DataClient" ToRole="Client" />
+          <NavigationProperty Name="ExercisesForClient" Relationship="Self.FK_ExercisesForClient_DataClient" FromRole="DataClient" ToRole="ExercisesForClient" />
+          <NavigationProperty Name="ResultExercises" Relationship="Self.FK_ResultExercises_DataClient" FromRole="DataClient" ToRole="ResultExercises" />
+        </EntityType>
+        <EntityType Name="DataTrainer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Int32" Nullable="false" />
+          <Property Name="BarbellSquat" Type="Int32" Nullable="false" />
+          <Property Name="Deadlift" Type="Int32" Nullable="false" />
+          <Property Name="BenchPress" Type="Int32" Nullable="false" />
+          <Property Name="Pullups" Type="Int32" Nullable="false" />
+          <Property Name="BodyType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Trainer" Relationship="Self.FK_DataTrainer_Trainer" FromRole="DataTrainer" ToRole="Trainer" />
+        </EntityType>
+        <EntityType Name="Exercises">
+          <Key>
+            <PropertyRef Name="Exercises1" />
+          </Key>
+          <Property Name="Exercises1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MuscleGroups" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Priorety" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ExercisesForClient">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Id_client" Type="Int32" />
+          <Property Name="First_Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Second_Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Third_Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DataClient" Relationship="Self.FK_ExercisesForClient_DataClient" FromRole="ExercisesForClient" ToRole="DataClient" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Number_Group" />
+          </Key>
+          <Property Name="Number_Group" Type="Int32" Nullable="false" />
+          <Property Name="Id_Trainer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Client_Group1" FromRole="Group" ToRole="Client" />
+          <NavigationProperty Name="Trainer" Relationship="Self.FK_Trainer_Group" FromRole="Group" ToRole="Trainer" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="id_Message" />
+          </Key>
+          <Property Name="messages1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_Message" Type="Int32" Nullable="false" />
+          <Property Name="Who_sender" Type="Int32" Nullable="false" />
+          <Property Name="Who_recipient" Type="Int32" Nullable="false" />
+          <Property Name="GroupMessage" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ResultExercises">
+          <Key>
+            <PropertyRef Name="number" />
+          </Key>
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <Property Name="First_Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="First_Day_Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="First_Day_Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Second_Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Second_Day_Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Second_Day_Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Third_Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Third_Day_Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Third_Day_Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Client" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DataClient" Relationship="Self.FK_ResultExercises_DataClient" FromRole="ResultExercises" ToRole="DataClient" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Trainer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Number_Group" Type="Int32" />
+          <NavigationProperty Name="DataTrainer" Relationship="Self.FK_DataTrainer_Trainer" FromRole="Trainer" ToRole="DataTrainer" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Trainer_Group" FromRole="Trainer" ToRole="Group" />
+        </EntityType>
+        <Association Name="FK_Client_Group1">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Number_Group" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="Number_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataClient_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="DataClient" Type="Self.DataClient" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DataClient">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExercisesForClient_DataClient">
+          <End Role="DataClient" Type="Self.DataClient" Multiplicity="0..1" />
+          <End Role="ExercisesForClient" Type="Self.ExercisesForClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataClient">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExercisesForClient">
+              <PropertyRef Name="Id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResultExercises_DataClient">
+          <End Role="DataClient" Type="Self.DataClient" Multiplicity="0..1" />
+          <End Role="ResultExercises" Type="Self.ResultExercises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataClient">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ResultExercises">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataTrainer_Trainer">
+          <End Role="Trainer" Type="Self.Trainer" Multiplicity="1" />
+          <End Role="DataTrainer" Type="Self.DataTrainer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Trainer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DataTrainer">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainer_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Trainer" Type="Self.Trainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Number_Group" />
+            </Principal>
+            <Dependent Role="Trainer">
+              <PropertyRef Name="Number_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_KURSACH_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="DataClient" EntityType="Self.DataClient" />
+          <EntitySet Name="DataTrainer" EntityType="Self.DataTrainer" />
+          <EntitySet Name="Exercises" EntityType="Self.Exercises" />
+          <EntitySet Name="ExercisesForClient" EntityType="Self.ExercisesForClient" />
+          <EntitySet Name="Group" EntityType="Self.Group" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" />
+          <EntitySet Name="ResultExercises" EntityType="Self.ResultExercises" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Trainer" EntityType="Self.Trainer" />
+          <AssociationSet Name="FK_Client_Group1" Association="Self.FK_Client_Group1">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataClient_Client" Association="Self.FK_DataClient_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="DataClient" EntitySet="DataClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExercisesForClient_DataClient" Association="Self.FK_ExercisesForClient_DataClient">
+            <End Role="DataClient" EntitySet="DataClient" />
+            <End Role="ExercisesForClient" EntitySet="ExercisesForClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResultExercises_DataClient" Association="Self.FK_ResultExercises_DataClient">
+            <End Role="DataClient" EntitySet="DataClient" />
+            <End Role="ResultExercises" EntitySet="ResultExercises" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataTrainer_Trainer" Association="Self.FK_DataTrainer_Trainer">
+            <End Role="Trainer" EntitySet="Trainer" />
+            <End Role="DataTrainer" EntitySet="DataTrainer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trainer_Group" Association="Self.FK_Trainer_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Trainer" EntitySet="Trainer" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BD_KURSACH_Model.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(BD_KURSACH_Model.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BD_KURSACH_ModelContainer" CdmEntityContainer="BD_KURSACH_Entities">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="BD_KURSACH_Model.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Number_Group" ColumnName="Number_Group" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataClient">
+            <EntityTypeMapping TypeName="BD_KURSACH_Model.DataClient">
+              <MappingFragment StoreEntitySet="DataClient">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Bodytype" ColumnName="Bodytype" />
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataTrainer">
+            <EntityTypeMapping TypeName="BD_KURSACH_Model.DataTrainer">
+              <MappingFragment StoreEntitySet="DataTrainer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="BarbellSquat" ColumnName="BarbellSquat" />
+                <ScalarProperty Name="Deadlift" ColumnName="Deadlift" />
+                <ScalarProperty Name="BenchPress" ColumnName="BenchPress" />
+                <ScalarProperty Name="Pullups" ColumnName="Pullups" />
+                <ScalarProperty Name="BodyType" ColumnName="BodyType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exercises">
+            <EntityTypeMapping TypeName="BD_KURSACH_Model.Exercises">
+              <MappingFragment StoreEntitySet="Exercises">
+                <ScalarProperty Name="Exercises1" ColumnName="Exercises" />
+                <ScalarProperty Name="MuscleGroups" ColumnName="MuscleGroups" />
+                <ScalarProperty Name="Priorety" ColumnName="Priorety" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExercisesForClient">
+            <EntityTypeMapping TypeName="BD_KURSACH_Model.ExercisesForClient">
+              <MappingFragment StoreEntitySet="ExercisesForClient">
+                <ScalarProperty Name="Id_client" ColumnName="Id_client" />
+                <ScalarProperty Name="First_Day" ColumnName="First_Day" />
+                <ScalarProperty Name="Second_Day" ColumnName="Second_Day" />
+                <ScalarProperty Name="Third_Day" ColumnName="Third_Day" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group">
+            <EntityTypeMapping TypeName="BD_KURSACH_Model.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="Number_Group" ColumnName="Number_Group" />
+                <ScalarProperty Name="Id_Trainer" ColumnName="Id_Trainer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="BD_KURSACH_Model.Messages">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="messages1" ColumnName="messages" />
+                <ScalarProperty Name="id_Message" ColumnName="id_Message" />
+                <ScalarProperty Name="Who_sender" ColumnName="Who_sender" />
+                <ScalarProperty Name="Who_recipient" ColumnName="Who_recipient" />
+                <ScalarProperty Name="GroupMessage" ColumnName="GroupMessage" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResultExercises">
+            <EntityTypeMapping TypeName="BD_KURSACH_Model.ResultExercises">
+              <MappingFragment StoreEntitySet="ResultExercises">
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="First_Day" ColumnName="First_Day" />
+                <ScalarProperty Name="First_Day_Weight" ColumnName="First_Day_Weight" />
+                <ScalarProperty Name="First_Day_Quantity" ColumnName="First_Day_Quantity" />
+                <ScalarProperty Name="Second_Day" ColumnName="Second_Day" />
+                <ScalarProperty Name="Second_Day_Weight" ColumnName="Second_Day_Weight" />
+                <ScalarProperty Name="Second_Day_Quantity" ColumnName="Second_Day_Quantity" />
+                <ScalarProperty Name="Third_Day" ColumnName="Third_Day" />
+                <ScalarProperty Name="Third_Day_Weight" ColumnName="Third_Day_Weight" />
+                <ScalarProperty Name="Third_Day_Quantity" ColumnName="Third_Day_Quantity" />
+                <ScalarProperty Name="Id_Client" ColumnName="Id_Client" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BD_KURSACH_Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trainer">
+            <EntityTypeMapping TypeName="BD_KURSACH_Model.Trainer">
+              <MappingFragment StoreEntitySet="Trainer">
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Number_Group" ColumnName="Number_Group" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище BD_KURSACH_Model.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище BD_KURSACH_Model.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище BD_KURSACH_Model.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище BD_KURSACH_Model.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_KURSACH_Model.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище BD_KURSACH_Model.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_KURSACH_Model.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище BD_KURSACH_Model.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище BD_KURSACH_Model.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
